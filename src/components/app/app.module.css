@@ -19,6 +19,10 @@
   margin: auto;
 }
 
+.modal {
+  overflow: hidden;
+}
+
 /* Скролл */
 ::-webkit-scrollbar {
   width: 8px;

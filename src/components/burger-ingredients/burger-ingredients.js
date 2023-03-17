@@ -4,7 +4,9 @@ import "@ya.praktikum/react-developer-burger-ui-components/dist/ui/box.css";
 import "@ya.praktikum/react-developer-burger-ui-components/dist/ui/common.css";
 import styles from "./burger-ingredients.module.css";
 import appStyles from "../app/app.module.css";
-import Ingredient from "../ingredient/ingredient";
+import Modal from "../modal/modal.js";
+import Ingredient from "../ingredient/ingredient.js";
+import IngredientInfo from "../ingredient-info/ingredient-info.js";
 
 const BurgerIngredients = (props) => {
   const { burgerIngredients } = props;
@@ -68,7 +70,13 @@ const BurgerIngredients = (props) => {
           ))}
         </div>
       </div>
-      
+      <div className={`${appStyles.modal}`}>
+        {modalVisible && (
+          <Modal onClose={handleCloseModal} header=" Детали ингредиента"> 
+            <IngredientInfo details={currentIngredient} />
+          </Modal>
+        )}
+      </div>
     </div>
   );
 };
