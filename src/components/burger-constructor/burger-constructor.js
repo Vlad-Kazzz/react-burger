@@ -9,6 +9,8 @@ import "@ya.praktikum/react-developer-burger-ui-components/dist/ui/box.css";
 import "@ya.praktikum/react-developer-burger-ui-components/dist/ui/common.css";
 import styles from "./burger-constructor.module.css";
 import appStyles from "../app/app.module.css";
+import Modal from "../modal/modal.js";
+import OrderInfo from "../order-info/order-info.js";
 
 const BurgerConstructor = (props) => {
   const { selectedIngredients } = props;
@@ -53,7 +55,13 @@ const BurgerConstructor = (props) => {
           Оформить заказ
         </Button>
       </div>
-      
+      <div className={`${appStyles.modal}`}>
+        {modalVisible && (
+          <Modal onClose={handleCloseModal}>
+            <OrderInfo/>
+          </Modal>
+        )}
+      </div>
     </div>
   );
 };
