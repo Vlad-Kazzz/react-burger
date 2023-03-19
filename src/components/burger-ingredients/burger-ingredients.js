@@ -7,6 +7,7 @@ import appStyles from "../app/app.module.css";
 import Modal from "../modal/modal.js";
 import Ingredient from "../ingredient/ingredient.js";
 import IngredientInfo from "../ingredient-info/ingredient-info.js";
+import {burgerIngredientsPropTypes} from "../../utils/prop-types.js";
 
 const BurgerIngredients = (props) => {
   const { burgerIngredients } = props;
@@ -81,5 +82,8 @@ const BurgerIngredients = (props) => {
   );
 };
 
+BurgerIngredients.propTypes = {
+  burgerIngredients: burgerIngredientsPropTypes,
+}
 
 export default BurgerIngredients;

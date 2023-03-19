@@ -1,8 +1,9 @@
 import React from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import "@ya.praktikum/react-developer-burger-ui-components/dist/ui/box.css";
 import "@ya.praktikum/react-developer-burger-ui-components/dist/ui/common.css";
 import styles from "./ingredient-info.module.css";
+import {ingredientsInfoPropTypes} from "../../utils/prop-types.js";
 
 const IngredientInfo = (props) => {
   const { name, image_large, calories, proteins, fat, carbohydrates } =
@@ -54,15 +55,9 @@ const IngredientInfo = (props) => {
   );
 };
 
+
 IngredientInfo.propTypes = {
-  details: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    image_large: PropTypes.string.isRequired,
-    calories: PropTypes.number.isRequired,
-    proteins: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    carbohydrates: PropTypes.number.isRequired,
-  }).isRequired,
+  details: ingredientsInfoPropTypes
 };
 
 export default IngredientInfo;

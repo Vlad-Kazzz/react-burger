@@ -11,6 +11,7 @@ import styles from "./burger-constructor.module.css";
 import appStyles from "../app/app.module.css";
 import Modal from "../modal/modal.js";
 import OrderInfo from "../order-info/order-info.js";
+import {burgerIngredientsPropTypes} from "../../utils/prop-types.js";
 
 const BurgerConstructor = (props) => {
   const { selectedIngredients } = props;
@@ -64,6 +65,10 @@ const BurgerConstructor = (props) => {
       </div>
     </div>
   );
+};
+
+BurgerConstructor.propTypes = {
+  selectedIngredients: burgerIngredientsPropTypes,
 };
 
 export default BurgerConstructor;
