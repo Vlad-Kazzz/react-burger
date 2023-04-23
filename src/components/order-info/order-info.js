@@ -9,7 +9,7 @@ import { OrderContext } from "../../utils/order-context";
 const OrderInfo = () => {
   const orderNumber = React.useContext(OrderContext);
   return (
-    <div className={`${styles.orderDetailsMain} mt-30`}>
+    <div className={`${styles.orderInfoMain} mt-30`}>
       <div className={`${styles.digitsShadow} text_type_digits-large mb-8`}>
         {orderNumber}
       </div>

@@ -14,7 +14,7 @@ const Ingredient = (props) => {
     return (
       <div className={`${styles.ingredient}`} onClick={handleClick} >
         {counter > 0 ? <Counter count={counter} size="default" /> : null}
-        <img className={`ml-4 mr-4 mb-1`} src={image} alt="ingredient" />
+        <img className={`ml-4 mr-4 mb-1`} src={image} alt="изображение" />
         <div className={`${styles.priceAndIcon} text_type_digits-default mb-4`}>
           <span>{price}</span>
           <CurrencyIcon />

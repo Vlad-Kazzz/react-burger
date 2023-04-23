@@ -10,10 +10,14 @@ import BurgerConstructor from "../burger-constructor/burger-constructor.js";
 
 import { ConstructorIngredientsContext } from "../../utils/constructor-ingredients-context";
 import { AllIngredientsContext } from "../../utils/all-ingredients-context";
-import { DATA_URL } from "../../utils/urls";
+// import { DATA_URL } from "../../utils/urls";
+import { BASE_URL } from "../../utils/urls";
 import { checkReponse } from "../../utils/check-response";
 
 import {burgerIngredientsPropTypes} from "../../utils/prop-types";
+
+const ingredientsEndpoint = '/ingredients';
+const DATA_URL = `${BASE_URL}${ingredientsEndpoint}`;
 
 const App = () => {
   const [state, setState] = React.useState({
@@ -49,7 +53,7 @@ const App = () => {
   React.useEffect(() => {
     setState({ ...state, loading: true });
 
-    fetch(DATA_URL)
+    fetch(DATA_URL) 
       .then((res) => checkReponse(res, state, setState))
       .then((dataJson) => 
         

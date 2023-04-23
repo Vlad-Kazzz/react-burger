@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import "@ya.praktikum/react-developer-burger-ui-components/dist/ui/box.css";
 import "@ya.praktikum/react-developer-burger-ui-components/dist/ui/common.css";
@@ -86,8 +87,8 @@ const BurgerIngredients = () => {
   );
 };
 
-BurgerIngredients.propTypes = {
-  burgerIngredients: burgerIngredientsPropTypes,
-}
+// BurgerIngredients.propTypes = {
+//   burgerIngredients: burgerIngredientsPropTypes,
+// }
 
 export default BurgerIngredients;

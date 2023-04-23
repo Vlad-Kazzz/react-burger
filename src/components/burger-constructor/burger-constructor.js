@@ -14,9 +14,14 @@ import Modal from "../modal/modal.js";
 import OrderInfo from "../order-info/order-info.js";
 
 import { ConstructorIngredientsContext } from "../../utils/constructor-ingredients-context";
-import { ORDER_URL } from "../../utils/urls.js";
+// import { ORDER_URL } from "../../utils/urls.js";
+import { BASE_URL } from "../../utils/urls.js";
 import { checkReponse } from "../../utils/check-response.js";
 import { OrderContext } from "../../utils/order-context.js";
+
+
+const orderEndpoint = '/orders';
+const ORDER_URL = `${BASE_URL}${orderEndpoint}`;
 
 // import {burgerIngredientsPropTypes} from "../../utils/prop-types.js";
 

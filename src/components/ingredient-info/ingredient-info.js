@@ -11,7 +11,7 @@ const IngredientInfo = (props) => {
   return (
     <div className={`${styles.ingredientInfoMain} mt-25 pt-1 `}>
 
-      <img className={`mb-4`} src={image_large} alt="ingredient" />
+      <img className={`mb-4`} src={image_large} alt="изображение" />
       <div className={`text text_type_main-medium mb-8`}>{name}</div>
       <div className={`${styles.detailsParams} text text_color_inactive mb-15`}>
 
