@@ -9,8 +9,12 @@ import Ingredient from "../ingredient/ingredient.js";
 import IngredientInfo from "../ingredient-info/ingredient-info.js";
 import {burgerIngredientsPropTypes} from "../../utils/prop-types.js";
 
-const BurgerIngredients = (props) => {
-  const { burgerIngredients } = props;
+import { AllIngredientsContext } from "../../utils/all-ingredients-context";
+
+const BurgerIngredients = () => {
+  const burgerIngredients  = React.useContext(
+    AllIngredientsContext
+  );
 
   const bunList = burgerIngredients
     .filter((elem) => elem.type === "bun")

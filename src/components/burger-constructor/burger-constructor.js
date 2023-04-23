@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {
   Button,
   ConstructorElement,
@@ -11,29 +12,70 @@ import styles from "./burger-constructor.module.css";
 import appStyles from "../app/app.module.css";
 import Modal from "../modal/modal.js";
 import OrderInfo from "../order-info/order-info.js";
-import {burgerIngredientsPropTypes} from "../../utils/prop-types.js";
 
-const BurgerConstructor = (props) => {
-  const { selectedIngredients } = props;
-  const ingredientsList = selectedIngredients.filter(
-    (elem) => elem.type !== "bun"
+import { ConstructorIngredientsContext } from "../../utils/constructor-ingredients-context";
+import { ORDER_URL } from "../../utils/urls.js";
+import { checkReponse } from "../../utils/check-response.js";
+import { OrderContext } from "../../utils/order-context.js";
+
+// import {burgerIngredientsPropTypes} from "../../utils/prop-types.js";
+
+const BurgerConstructor = () => {
+  const { selectedIngredients, selectedBun, totalPrice } = React.useContext(
+    ConstructorIngredientsContext
   );
 
+  
   const [modalVisible, setModalVisible] = React.useState(false);
 
-  const handleOpenModal = () => setModalVisible(true);
-  const handleCloseModal = () => setModalVisible(false);
+  const [responseState, setResponseState] = React.useState({
+    orderNumber: null,
+    loading: false,
+    error: null,
+  });
 
-  let totalPrice = 0;
+  const handleOpenModal = () => {
+
+    setResponseState({ ...responseState, loading: true });
+
+    const burgerRequest = {
+      ingredients: [
+        ...selectedIngredients.map((elem) => {
+          return elem._id;
+        }),
+        selectedBun._id,
+      ],
+    };
+
+    fetch(ORDER_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+      body: JSON.stringify(burgerRequest),
+    })
+      .then((res) => checkReponse(res, responseState, setResponseState))
+      .then((dataJson) =>
+        setResponseState({ orderNumber: dataJson.order.number, loading: false })
+      )
+      .catch((e) => {
+        setResponseState({ ...responseState, error: e.message });
+      });
+
+    if (!responseState.loading) {
+      setModalVisible(true);
+    }
+  };
+
+  const handleCloseModal = () => setModalVisible(false);
 
   return (
     <div className={`pt-25 pl-4`}>
       <div className={`${appStyles.alignRight} mr-4`}>
-        <ConstructorElement key="60d3b41abdacab0026a733c6"type="top" isLocked={true} text="Краторная булка N-200i (верх)" price="20" thumbnail="https://code.s3.yandex.net/react/code/bun-02.png"/>
+        <ConstructorElement key={selectedBun._id} type="top" isLocked={true} text={`${selectedBun.name}  (верх)`} price={selectedBun.price} thumbnail={selectedBun.image}/>
       </div>
       <div className={`${styles.ingredientList} mt-4`}>
-        {ingredientsList.map((elem) => {
-          totalPrice = totalPrice + elem.price;
+        {selectedIngredients.map((elem) => {
           return (
             <div key={elem._id} className={`${styles.innerIngredient} mb-4 mr-2`}>
               <DragIcon />
@@ -43,11 +85,11 @@ const BurgerConstructor = (props) => {
         })}
       </div>
       <div className={`${appStyles.alignRight} mr-4`}>
-        <ConstructorElement key="60d3b41abdacab0026a733c6"type="bottom"isLocked={true} text="Краторная булка N-200i (низ)" price="20" thumbnail="https://code.s3.yandex.net/react/code/bun-02.png"/>
+        <ConstructorElement key={selectedBun._id} type="bottom" isLocked={true} text={`${selectedBun.name}  (низ)`} price={selectedBun.price} thumbnail={selectedBun.image}/>
       </div>
       <div className={`${styles.totalOrder} mt-10 mr-4`}>
         <div className={`text_type_digits-medium`}>
-          <span className={`mr-4`}>{totalPrice + 40}</span>
+          <span className={`mr-4`}>{totalPrice}</span>
           <div className={`${styles.totalPriceIcon}`}>
             <CurrencyIcon />
           </div>
@@ -59,7 +101,9 @@ const BurgerConstructor = (props) => {
       <div className={`${appStyles.modal}`}>
         {modalVisible && (
           <Modal onClose={handleCloseModal}>
-            <OrderInfo/>
+            <OrderContext.Provider value={responseState.orderNumber}>
+              <OrderInfo />
+            </OrderContext.Provider>
           </Modal>
         )}
       </div>
@@ -67,8 +111,11 @@ const BurgerConstructor = (props) => {
   );
 };
 
-BurgerConstructor.propTypes = {
-  selectedIngredients: burgerIngredientsPropTypes,
-};
+OrderContext.Provider.propTypes = PropTypes.shape({
+  children: PropTypes.element.isRequired,
+  value: PropTypes.number.isRequired
+}).isRequired;
+
 
 export default BurgerConstructor;
+
