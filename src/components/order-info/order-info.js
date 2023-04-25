@@ -4,10 +4,11 @@ import "@ya.praktikum/react-developer-burger-ui-components/dist/ui/common.css";
 import styles from "./order-info.module.css";
 import detailsLogo from "../../images/details-logo.svg";
 
-import { OrderContext } from "../../utils/order-context";
+import { useSelector } from "react-redux";
 
 const OrderInfo = () => {
-  const orderNumber = React.useContext(OrderContext);
+  const { orderNumber } = useSelector((store) => store.orderReducer);
+
   return (
     <div className={`${styles.orderInfoMain} mt-30`}>
       <div className={`${styles.digitsShadow} text_type_digits-large mb-8`}>
@@ -16,11 +17,7 @@ const OrderInfo = () => {
       <div className={`text text_type_main-medium mb-15`}>
         идентификатор заказа
       </div>
-      <img
-        className={`${styles.imageOrderDetails} mb-15`}
-        src={detailsLogo}
-        alt="logo"
-      />
+      <img className={`${styles.imageOrderDetails} mb-15`} src={detailsLogo} alt="Логотип"/>
       <div className={`text text_type_main-default mb-2`}>
         Ваш заказ начали готовить
       </div>
@@ -31,6 +28,6 @@ const OrderInfo = () => {
   );
 };
 
-
 export default OrderInfo;
+
 

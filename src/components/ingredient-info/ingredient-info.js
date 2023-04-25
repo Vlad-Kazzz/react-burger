@@ -3,18 +3,18 @@ import React from "react";
 import "@ya.praktikum/react-developer-burger-ui-components/dist/ui/box.css";
 import "@ya.praktikum/react-developer-burger-ui-components/dist/ui/common.css";
 import styles from "./ingredient-info.module.css";
-import {ingredientsInfoPropTypes} from "../../utils/prop-types.js";
+import { useSelector } from "react-redux";
 
-const IngredientInfo = (props) => {
-  const { name, image_large, calories, proteins, fat, carbohydrates } =
-    props.details;
+const IngredientInfo = () => {
+  const { details } = useSelector((store) => store.modalReducer);
+
+  const { name, image_large, calories, proteins, fat, carbohydrates } = details;
+
   return (
     <div className={`${styles.ingredientInfoMain} mt-25 pt-1 `}>
-
-      <img className={`mb-4`} src={image_large} alt="изображение" />
+      <img className={`mb-4`} src={image_large} alt={name} />
       <div className={`text text_type_main-medium mb-8`}>{name}</div>
       <div className={`${styles.detailsParams} text text_color_inactive mb-15`}>
-
         <div className={`mr-5`}>
           <div className={`text text_type_main-default mb-2 ${styles.paramCenterAlign}`}>
             Калории,ккал
@@ -23,7 +23,6 @@ const IngredientInfo = (props) => {
             {calories}
           </div>
         </div>
-
         <div className={`mr-5`}>
           <div className={`text text_type_main-default mb-2 ${styles.paramCenterAlign}`}>
             Белки, г
@@ -32,7 +31,6 @@ const IngredientInfo = (props) => {
             {proteins}
           </div>
         </div>
-
         <div className={`mr-5`}>
           <div className={`text text_type_main-default mb-2 ${styles.paramCenterAlign}`}>
             Жиры, г
@@ -41,7 +39,6 @@ const IngredientInfo = (props) => {
             {fat}
           </div>
         </div>
-
         <div>
           <div className={`text text_type_main-default mb-2 ${styles.paramCenterAlign}`}>
             Углеводы, г
@@ -56,8 +53,9 @@ const IngredientInfo = (props) => {
 };
 
 
-IngredientInfo.propTypes = {
-  details: ingredientsInfoPropTypes
-};
+// IngredientInfo.propTypes = {
+//   details: ingredientsInfoPropTypes
+// };
 
 export default IngredientInfo;
+
